@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do Uygulaması</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 480px;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 28px 28px 20px;
+      color: #fff;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .header .stats {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    .input-area {
+      padding: 20px 24px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-area input:focus {
+      border-color: #667eea;
+    }
+
+    .input-area button {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .input-area button:hover {
+      opacity: 0.9;
+    }
+
+    .input-area button:active {
+      transform: scale(0.95);
+    }
+
+    .filters {
+      display: flex;
+      padding: 12px 24px;
+      gap: 8px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .filters button {
+      padding: 6px 14px;
+      border: 2px solid #e8e8e8;
+      border-radius: 20px;
+      background: transparent;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: #888;
+      transition: all 0.2s;
+    }
+
+    .filters button.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .todo-list {
+      padding: 12px 24px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .todo-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .todo-list::-webkit-scrollbar-thumb {
+      background: #d0d0d0;
+      border-radius: 4px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f5f5f5;
+      animation: slideIn 0.2s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .todo-item:last-child {
+      border-bottom: none;
+    }
+
+    .todo-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #667eea;
+      flex-shrink: 0;
+    }
+
+    .todo-text {
+      flex: 1;
+      font-size: 0.95rem;
+      color: #333;
+      word-break: break-word;
+      transition: all 0.2s;
+    }
+
+    .todo-text.done {
+      text-decoration: line-through;
+      color: #bbb;
+    }
+
+    .edit-input {
+      flex: 1;
+      padding: 4px 8px;
+      border: 2px solid #667eea;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-edit:hover  { background: #eef; }
+    .btn-delete:hover { background: #fee; }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #bbb;
+      font-size: 0.95rem;
+    }
+
+    .empty-state .icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    .footer {
+      padding: 14px 24px;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer span {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    .btn-clear {
+      background: none;
+      border: none;
+      font-size: 0.8rem;
+      color: #e57373;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-clear:hover {
+      background: #fee;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Yapılacaklar</h1>
+      <div class="stats" id="stats">0 görev</div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="taskInput" placeholder="Yeni görev ekle..." maxlength="200" />
+      <button id="addBtn" title="Ekle">+</button>
+    </div>
+
+    <div class="filters">
+      <button class="active" data-filter="all">Tümü</button>
+      <button data-filter="active">Aktif</button>
+      <button data-filter="done">Tamamlanan</button>
+    </div>
+
+    <div class="todo-list" id="todoList"></div>
+
+    <div class="footer">
+      <span id="footerInfo"></span>
+      <button class="btn-clear" id="clearDone">Tamamlananları sil</button>
+    </div>
+  </div>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem('todo_tasks') || '[]');
+    let filter = 'all';
+
+    const input     = document.getElementById('taskInput');
+    const addBtn    = document.getElementById('addBtn');
+    const listEl    = document.getElementById('todoList');
+    const statsEl   = document.getElementById('stats');
+    const footerEl  = document.getElementById('footerInfo');
+    const clearBtn  = document.getElementById('clearDone');
+
+    function save() {
+      localStorage.setItem('todo_tasks', JSON.stringify(tasks));
+    }
+
+    function addTask() {
+      const text = input.value.trim();
+      if (!text) return;
+      tasks.push({ id: Date.now(), text, done: false });
+      input.value = '';
+      save();
+      render();
+    }
+
+    function toggleTask(id) {
+      const t = tasks.find(t => t.id === id);
+      if (t) { t.done = !t.done; save(); render(); }
+    }
+
+    function deleteTask(id) {
+      tasks = tasks.filter(t => t.id !== id);
+      save();
+      render();
+    }
+
+    function startEdit(id) {
+      render(id);
+    }
+
+    function saveEdit(id, val) {
+      const t = tasks.find(t => t.id === id);
+      if (t && val.trim()) { t.text = val.trim(); save(); }
+      render();
+    }
+
+    function render(editingId = null) {
+      const filtered = tasks.filter(t => {
+        if (filter === 'active') return !t.done;
+        if (filter === 'done')   return t.done;
+        return true;
+      });
+
+      const total  = tasks.length;
+      const done   = tasks.filter(t => t.done).length;
+      const active = total - done;
+
+      statsEl.textContent = `${total} görev · ${active} aktif · ${done} tamamlandı`;
+      footerEl.textContent = `${active} görev kaldı`;
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">✅</div>
+            ${filter === 'done' ? 'Henüz tamamlanan görev yok.' :
+              filter === 'active' ? 'Tüm görevler tamamlandı!' :
+              'Henüz görev eklenmedi.'}
+          </div>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(t => {
+        if (t.id === editingId) {
+          return `
+            <div class="todo-item">
+              <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${t.id})" />
+              <input class="edit-input" id="edit-${t.id}" value="${escHtml(t.text)}"
+                onblur="saveEdit(${t.id}, this.value)"
+                onkeydown="if(event.key==='Enter') this.blur(); if(event.key==='Escape') render();" />
+            </div>`;
+        }
+        return `
+          <div class="todo-item">
+            <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${t.id})" />
+            <span class="todo-text ${t.done ? 'done' : ''}">${escHtml(t.text)}</span>
+            <button class="btn-icon btn-edit"   onclick="startEdit(${t.id})"   title="Düzenle">✏️</button>
+            <button class="btn-icon btn-delete" onclick="deleteTask(${t.id})"  title="Sil">🗑️</button>
+          </div>`;
+      }).join('');
+
+      if (editingId) {
+        const el = document.getElementById(`edit-${editingId}`);
+        if (el) { el.focus(); el.select(); }
+      }
+    }
+
+    function escHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    addBtn.addEventListener('click', addTask);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
+
+    document.querySelectorAll('.filters button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filter = btn.dataset.filter;
+        render();
+      });
+    });
+
+    clearBtn.addEventListener('click', () => {
+      tasks = tasks.filter(t => !t.done);
+      save();
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
