@@ -17,7 +17,7 @@
       padding: 20px;
     }
 
-    .container {
+    .card {
       background: #fff;
       border-radius: 16px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -26,17 +26,120 @@
       overflow: hidden;
     }
 
-    .header {
+    .card-header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       padding: 28px 28px 20px;
       color: #fff;
     }
 
-    .header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
-    .header .stats { font-size: 0.85rem; opacity: 0.85; }
+    .card-header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
+    .card-header p  { font-size: 0.85rem; opacity: 0.85; }
+
+    /* ── Auth forms ── */
+    .auth-body { padding: 28px; }
+
+    .auth-body h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus { border-color: #667eea; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin-top: 4px;
+    }
+
+    .btn-primary:hover    { opacity: 0.9; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .switch-link {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    .switch-link a { color: #667eea; cursor: pointer; text-decoration: underline; }
+
+    .notice {
+      background: #f0f4ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 10px;
+      padding: 18px;
+      margin: 20px 28px 28px;
+      text-align: center;
+      color: #4338ca;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .notice .big { font-size: 2rem; margin-bottom: 8px; }
+
+    .alert {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    .alert-error   { background: #fee; color: #c0392b; border: 1px solid #f5c6cb; }
+    .alert-success { background: #efe; color: #1a7a3c; border: 1px solid #c3e6cb; }
+
+    /* ── Todo app ── */
+    .app-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px 24px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .app-header .title { font-size: 1.4rem; font-weight: 700; }
+    .app-header .stats { font-size: 0.78rem; opacity: 0.85; margin-top: 2px; }
+
+    .btn-logout {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-logout:hover { background: rgba(255,255,255,0.3); }
 
     .input-area {
-      padding: 20px 24px;
+      padding: 16px 20px;
       border-bottom: 1px solid #f0f0f0;
       display: flex;
       gap: 10px;
@@ -44,7 +147,7 @@
 
     .input-area input {
       flex: 1;
-      padding: 12px 16px;
+      padding: 11px 14px;
       border: 2px solid #e8e8e8;
       border-radius: 10px;
       font-size: 0.95rem;
@@ -55,33 +158,32 @@
     .input-area input:focus { border-color: #667eea; }
 
     .input-area button {
-      padding: 12px 20px;
+      padding: 11px 18px;
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: #fff;
       border: none;
       border-radius: 10px;
       font-size: 1.2rem;
       cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
+      transition: opacity 0.2s;
     }
 
-    .input-area button:hover { opacity: 0.9; }
-    .input-area button:active { transform: scale(0.95); }
+    .input-area button:hover    { opacity: 0.9; }
     .input-area button:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .filters {
       display: flex;
-      padding: 12px 24px;
+      padding: 10px 20px;
       gap: 8px;
       border-bottom: 1px solid #f0f0f0;
     }
 
     .filters button {
-      padding: 6px 14px;
+      padding: 5px 12px;
       border: 2px solid #e8e8e8;
       border-radius: 20px;
       background: transparent;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       cursor: pointer;
       color: #888;
       transition: all 0.2s;
@@ -94,8 +196,8 @@
     }
 
     .todo-list {
-      padding: 12px 24px;
-      max-height: 400px;
+      padding: 10px 20px;
+      max-height: 360px;
       overflow-y: auto;
     }
 
@@ -105,22 +207,21 @@
     .todo-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 14px 0;
+      gap: 10px;
+      padding: 12px 0;
       border-bottom: 1px solid #f5f5f5;
       animation: slideIn 0.2s ease;
     }
 
     @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-8px); }
+      from { opacity: 0; transform: translateY(-6px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     .todo-item:last-child { border-bottom: none; }
 
     .todo-item input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
+      width: 18px; height: 18px;
       cursor: pointer;
       accent-color: #667eea;
       flex-shrink: 0;
@@ -128,20 +229,19 @@
 
     .todo-text {
       flex: 1;
-      font-size: 0.95rem;
+      font-size: 0.93rem;
       color: #333;
       word-break: break-word;
-      transition: all 0.2s;
     }
 
     .todo-text.done { text-decoration: line-through; color: #bbb; }
 
     .edit-input {
       flex: 1;
-      padding: 4px 8px;
+      padding: 3px 8px;
       border: 2px solid #667eea;
       border-radius: 6px;
-      font-size: 0.95rem;
+      font-size: 0.93rem;
       outline: none;
     }
 
@@ -149,9 +249,9 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
-      padding: 4px 6px;
-      border-radius: 6px;
+      font-size: 0.95rem;
+      padding: 3px 5px;
+      border-radius: 5px;
       transition: background 0.2s;
       flex-shrink: 0;
     }
@@ -161,257 +261,396 @@
 
     .empty-state {
       text-align: center;
-      padding: 40px 20px;
+      padding: 36px 20px;
       color: #bbb;
-      font-size: 0.95rem;
-    }
-
-    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
-
-    .loading {
-      text-align: center;
-      padding: 30px;
-      color: #aaa;
       font-size: 0.9rem;
     }
+
+    .empty-state .icon { font-size: 2.6rem; margin-bottom: 10px; }
 
     .error-banner {
       background: #fee;
       color: #c0392b;
       font-size: 0.82rem;
-      padding: 8px 24px;
+      padding: 7px 20px;
       display: none;
     }
 
-    .footer {
-      padding: 14px 24px;
+    .app-footer {
+      padding: 12px 20px;
       border-top: 1px solid #f0f0f0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .footer span { font-size: 0.8rem; color: #aaa; }
+    .app-footer span { font-size: 0.78rem; color: #aaa; }
 
     .btn-clear {
       background: none;
       border: none;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #e57373;
       cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 3px 7px;
+      border-radius: 5px;
       transition: background 0.2s;
     }
 
     .btn-clear:hover { background: #fee; }
+
+    /* visibility helpers */
+    [data-view] { display: none; }
+    [data-view].active { display: block; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>Yapılacaklar</h1>
-      <div class="stats" id="stats">Yükleniyor...</div>
-    </div>
+<div class="card">
 
+  <!-- Kayıt ol -->
+  <div data-view="register">
+    <div class="card-header">
+      <h1>Yapılacaklar</h1>
+      <p>Hesap oluşturun</p>
+    </div>
+    <div class="auth-body">
+      <h2>Kayıt Ol</h2>
+      <div id="reg-alert"></div>
+      <div class="form-group">
+        <label>E-posta</label>
+        <input type="email" id="reg-email" placeholder="ornek@mail.com" />
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="reg-pass" placeholder="En az 6 karakter" />
+      </div>
+      <button class="btn-primary" id="reg-btn">Kayıt Ol</button>
+      <div class="switch-link">Hesabınız var mı? <a onclick="show('login')">Giriş yapın</a></div>
+    </div>
+  </div>
+
+  <!-- Giriş yap -->
+  <div data-view="login">
+    <div class="card-header">
+      <h1>Yapılacaklar</h1>
+      <p>Hesabınıza giriş yapın</p>
+    </div>
+    <div class="auth-body">
+      <h2>Giriş Yap</h2>
+      <div id="login-alert"></div>
+      <div class="form-group">
+        <label>E-posta</label>
+        <input type="email" id="login-email" placeholder="ornek@mail.com" />
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="login-pass" placeholder="Şifreniz" />
+      </div>
+      <button class="btn-primary" id="login-btn">Giriş Yap</button>
+      <div class="switch-link">Hesabınız yok mu? <a onclick="show('register')">Kayıt olun</a></div>
+    </div>
+  </div>
+
+  <!-- Onay bekleniyor -->
+  <div data-view="confirm">
+    <div class="card-header">
+      <h1>Yapılacaklar</h1>
+      <p>Neredeyse bitti!</p>
+    </div>
+    <div class="notice">
+      <div class="big">📧</div>
+      <strong>E-postanızı onaylayın</strong><br />
+      <span id="confirm-email"></span> adresine onay maili gönderdik.<br /><br />
+      Maildeki linke tıkladıktan sonra otomatik giriş yapılacak.
+      <br /><br />
+      <a onclick="show('login')" style="color:#667eea;cursor:pointer;font-size:0.85rem;">Giriş sayfasına dön</a>
+    </div>
+  </div>
+
+  <!-- Todo uygulaması -->
+  <div data-view="app">
+    <div class="app-header">
+      <div>
+        <div class="title">Yapılacaklar</div>
+        <div class="stats" id="stats"></div>
+      </div>
+      <button class="btn-logout" id="logout-btn">Çıkış</button>
+    </div>
     <div class="input-area">
       <input type="text" id="taskInput" placeholder="Yeni görev ekle..." maxlength="200" />
-      <button id="addBtn" title="Ekle">+</button>
+      <button id="addBtn">+</button>
     </div>
-
     <div class="filters">
       <button class="active" data-filter="all">Tümü</button>
       <button data-filter="active">Aktif</button>
       <button data-filter="done">Tamamlanan</button>
     </div>
-
     <div class="error-banner" id="errorBanner"></div>
-    <div class="todo-list" id="todoList"><div class="loading">Yükleniyor...</div></div>
-
-    <div class="footer">
+    <div class="todo-list" id="todoList"></div>
+    <div class="app-footer">
       <span id="footerInfo"></span>
       <button class="btn-clear" id="clearDone">Tamamlananları sil</button>
     </div>
   </div>
 
-  <script>
-    const SUPABASE_URL = 'https://kehkxgouyjceypxmtvip.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlaGt4Z291eWpjZXlweG10dmlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MjY0MTAsImV4cCI6MjA5MjEwMjQxMH0.MV72tv-63uoV-cBEa0aCF5rgfR4BKufQO1F7zKwjvd8';
-    const API = `${SUPABASE_URL}/rest/v1/todos`;
-    const HEADERS = {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://kehkxgouyjceypxmtvip.supabase.co';
+  const ANON_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlaGt4Z291eWpjZXlweG10dmlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MjY0MTAsImV4cCI6MjA5MjEwMjQxMH0.MV72tv-63uoV-cBEa0aCF5rgfR4BKufQO1F7zKwjvd8';
+
+  let accessToken = null;
+  let tasks = [];
+  let filter = 'all';
+
+  // ── helpers ────────────────────────────────────────────────
+  function show(view) {
+    document.querySelectorAll('[data-view]').forEach(el => el.classList.remove('active'));
+    document.querySelector(`[data-view="${view}"]`).classList.add('active');
+  }
+
+  function setAlert(id, msg, type = 'error') {
+    const el = document.getElementById(id);
+    if (!msg) { el.innerHTML = ''; return; }
+    el.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
+  }
+
+  function authHeaders(token) {
+    return {
+      'apikey': ANON_KEY,
+      'Authorization': `Bearer ${token || ANON_KEY}`,
       'Content-Type': 'application/json',
       'Prefer': 'return=representation'
     };
+  }
 
-    let tasks = [];
-    let filter = 'all';
+  async function authFetch(method, url, body, token) {
+    const res = await fetch(url, {
+      method,
+      headers: authHeaders(token),
+      body: body ? JSON.stringify(body) : null
+    });
+    const text = await res.text();
+    const data = text ? JSON.parse(text) : null;
+    if (!res.ok) throw new Error(data?.error_description || data?.message || res.status);
+    return data;
+  }
 
-    const input      = document.getElementById('taskInput');
-    const addBtn     = document.getElementById('addBtn');
-    const listEl     = document.getElementById('todoList');
-    const statsEl    = document.getElementById('stats');
-    const footerEl   = document.getElementById('footerInfo');
-    const clearBtn   = document.getElementById('clearDone');
-    const errorBanner = document.getElementById('errorBanner');
-
-    function showError(msg) {
-      errorBanner.textContent = msg;
-      errorBanner.style.display = 'block';
-      setTimeout(() => errorBanner.style.display = 'none', 4000);
+  // ── Supabase Auth ───────────────────────────────────────────
+  async function register() {
+    const email = document.getElementById('reg-email').value.trim();
+    const pass  = document.getElementById('reg-pass').value;
+    if (!email || !pass) return setAlert('reg-alert', 'E-posta ve şifre gerekli.');
+    const btn = document.getElementById('reg-btn');
+    btn.disabled = true; btn.textContent = 'Kaydediliyor...';
+    try {
+      const redirectTo = 'https://cevoka.github.io/todo-app/';
+      await authFetch('POST', `${SUPABASE_URL}/auth/v1/signup`, { email, password: pass, options: { emailRedirectTo: redirectTo } });
+      document.getElementById('confirm-email').textContent = email;
+      show('confirm');
+    } catch (e) {
+      setAlert('reg-alert', e.message);
+    } finally {
+      btn.disabled = false; btn.textContent = 'Kayıt Ol';
     }
+  }
 
-    async function api(method, path = '', body = null) {
-      const res = await fetch(API + path, {
-        method,
-        headers: HEADERS,
-        body: body ? JSON.stringify(body) : null
-      });
-      if (!res.ok) throw new Error(await res.text());
-      const text = await res.text();
-      return text ? JSON.parse(text) : null;
+  async function login() {
+    const email = document.getElementById('login-email').value.trim();
+    const pass  = document.getElementById('login-pass').value;
+    if (!email || !pass) return setAlert('login-alert', 'E-posta ve şifre gerekli.');
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true; btn.textContent = 'Giriş yapılıyor...';
+    try {
+      const data = await authFetch('POST', `${SUPABASE_URL}/auth/v1/token?grant_type=password`, { email, password: pass });
+      saveSession(data);
+      await enterApp();
+    } catch (e) {
+      const msg = e.message.includes('Email not confirmed')
+        ? 'E-posta adresiniz henüz onaylanmamış. Lütfen gelen kutunuzu kontrol edin.'
+        : e.message.includes('Invalid login')
+        ? 'E-posta veya şifre hatalı.'
+        : e.message;
+      setAlert('login-alert', msg);
+    } finally {
+      btn.disabled = false; btn.textContent = 'Giriş Yap';
     }
+  }
 
-    async function loadTasks() {
-      try {
-        tasks = await api('GET', '?order=created_at.asc');
-        render();
-      } catch (e) {
-        showError('Görevler yüklenemedi.');
-      }
+  async function logout() {
+    try {
+      await authFetch('POST', `${SUPABASE_URL}/auth/v1/logout`, {}, accessToken);
+    } catch (_) {}
+    clearSession();
+    show('login');
+  }
+
+  // ── Session storage ─────────────────────────────────────────
+  function saveSession(data) {
+    accessToken = data.access_token;
+    localStorage.setItem('sb_session', JSON.stringify({
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
+      expires_at: Date.now() + data.expires_in * 1000
+    }));
+  }
+
+  function clearSession() {
+    accessToken = null;
+    localStorage.removeItem('sb_session');
+  }
+
+  async function restoreSession() {
+    const raw = localStorage.getItem('sb_session');
+    if (!raw) return false;
+    const s = JSON.parse(raw);
+    if (Date.now() < s.expires_at - 60000) {
+      accessToken = s.access_token;
+      return true;
     }
-
-    async function addTask() {
-      const text = input.value.trim();
-      if (!text) return;
-      addBtn.disabled = true;
-      try {
-        const [created] = await api('POST', '', { text, done: false });
-        tasks.push(created);
-        input.value = '';
-        render();
-      } catch (e) {
-        showError('Görev eklenemedi.');
-      } finally {
-        addBtn.disabled = false;
-      }
+    // refresh
+    try {
+      const data = await authFetch('POST', `${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, { refresh_token: s.refresh_token });
+      saveSession(data);
+      return true;
+    } catch (_) {
+      clearSession();
+      return false;
     }
+  }
 
-    async function toggleTask(id) {
-      const t = tasks.find(t => t.id === id);
-      if (!t) return;
-      const prev = t.done;
-      t.done = !t.done;
+  // ── Handle email confirmation link (hash fragment) ──────────
+  async function handleHashFragment() {
+    const hash = window.location.hash.substring(1);
+    if (!hash) return false;
+    const params = new URLSearchParams(hash);
+    const type  = params.get('type');
+    const token = params.get('access_token');
+    const refresh = params.get('refresh_token');
+    const expires = parseInt(params.get('expires_in') || '3600', 10);
+
+    if ((type === 'signup' || type === 'magiclink') && token) {
+      saveSession({ access_token: token, refresh_token: refresh, expires_in: expires });
+      history.replaceState(null, '', window.location.pathname);
+      return true;
+    }
+    return false;
+  }
+
+  // ── Todo CRUD ───────────────────────────────────────────────
+  const TODOS_URL = `${SUPABASE_URL}/rest/v1/todos`;
+
+  async function api(method, path = '', body = null) {
+    return authFetch(method, TODOS_URL + path, body, accessToken);
+  }
+
+  async function loadTasks() {
+    tasks = await api('GET', '?order=created_at.asc');
+    render();
+  }
+
+  async function addTask() {
+    const text = document.getElementById('taskInput').value.trim();
+    if (!text) return;
+    const btn = document.getElementById('addBtn');
+    btn.disabled = true;
+    try {
+      const [created] = await api('POST', '', { text, done: false });
+      tasks.push(created);
+      document.getElementById('taskInput').value = '';
       render();
-      try {
-        await api('PATCH', `?id=eq.${id}`, { done: t.done });
-      } catch (e) {
-        t.done = prev;
-        render();
-        showError('Güncelleme başarısız.');
-      }
+    } catch (e) { showError('Görev eklenemedi.'); }
+    finally { btn.disabled = false; }
+  }
+
+  async function toggleTask(id) {
+    const t = tasks.find(t => t.id === id);
+    if (!t) return;
+    t.done = !t.done; render();
+    try { await api('PATCH', `?id=eq.${id}`, { done: t.done }); }
+    catch (e) { t.done = !t.done; render(); showError('Güncelleme başarısız.'); }
+  }
+
+  async function deleteTask(id) {
+    tasks = tasks.filter(t => t.id !== id); render();
+    try { await api('DELETE', `?id=eq.${id}`); }
+    catch (e) { showError('Silme başarısız.'); await loadTasks(); }
+  }
+
+  function startEdit(id) { render(id); }
+
+  async function saveEdit(id, val) {
+    const t = tasks.find(t => t.id === id);
+    if (!t || !val.trim()) { render(); return; }
+    const prev = t.text; t.text = val.trim(); render();
+    try { await api('PATCH', `?id=eq.${id}`, { text: t.text }); }
+    catch (e) { t.text = prev; render(); showError('Düzenleme kaydedilemedi.'); }
+  }
+
+  async function clearDone() {
+    tasks = tasks.filter(t => !t.done); render();
+    try { await api('DELETE', `?done=eq.true`); }
+    catch (e) { showError('Silme başarısız.'); await loadTasks(); }
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorBanner');
+    el.textContent = msg; el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 4000);
+  }
+
+  function render(editingId = null) {
+    const filtered = tasks.filter(t =>
+      filter === 'active' ? !t.done : filter === 'done' ? t.done : true
+    );
+    const total  = tasks.length;
+    const done   = tasks.filter(t => t.done).length;
+    const active = total - done;
+
+    document.getElementById('stats').textContent    = `${total} görev · ${active} aktif · ${done} tamamlandı`;
+    document.getElementById('footerInfo').textContent = `${active} görev kaldı`;
+
+    const listEl = document.getElementById('todoList');
+    if (filtered.length === 0) {
+      listEl.innerHTML = `<div class="empty-state"><div class="icon">✅</div>${
+        filter==='done' ? 'Henüz tamamlanan görev yok.' :
+        filter==='active' ? 'Tüm görevler tamamlandı!' : 'Henüz görev eklenmedi.'
+      }</div>`;
+      return;
     }
 
-    async function deleteTask(id) {
-      tasks = tasks.filter(t => t.id !== id);
-      render();
-      try {
-        await api('DELETE', `?id=eq.${id}`);
-      } catch (e) {
-        showError('Silme başarısız.');
-        await loadTasks();
-      }
+    listEl.innerHTML = filtered.map(t => t.id === editingId ? `
+      <div class="todo-item">
+        <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})" />
+        <input class="edit-input" id="edit-${t.id}" value="${esc(t.text)}"
+          onblur="saveEdit(${t.id},this.value)"
+          onkeydown="if(event.key==='Enter')this.blur();if(event.key==='Escape')render();" />
+      </div>` : `
+      <div class="todo-item">
+        <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})" />
+        <span class="todo-text ${t.done?'done':''}">${esc(t.text)}</span>
+        <button class="btn-icon btn-edit"   onclick="startEdit(${t.id})" title="Düzenle">✏️</button>
+        <button class="btn-icon btn-delete" onclick="deleteTask(${t.id})" title="Sil">🗑️</button>
+      </div>`
+    ).join('');
+
+    if (editingId) {
+      const el = document.getElementById(`edit-${editingId}`);
+      if (el) { el.focus(); el.select(); }
     }
+  }
 
-    function startEdit(id) { render(id); }
+  function esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 
-    async function saveEdit(id, val) {
-      const t = tasks.find(t => t.id === id);
-      if (!t || !val.trim()) { render(); return; }
-      const prev = t.text;
-      t.text = val.trim();
-      render();
-      try {
-        await api('PATCH', `?id=eq.${id}`, { text: t.text });
-      } catch (e) {
-        t.text = prev;
-        render();
-        showError('Düzenleme kaydedilemedi.');
-      }
-    }
-
-    async function clearDone() {
-      const doneIds = tasks.filter(t => t.done).map(t => t.id);
-      if (!doneIds.length) return;
-      tasks = tasks.filter(t => !t.done);
-      render();
-      try {
-        await api('DELETE', `?done=eq.true`);
-      } catch (e) {
-        showError('Silme başarısız.');
-        await loadTasks();
-      }
-    }
-
-    function render(editingId = null) {
-      const filtered = tasks.filter(t => {
-        if (filter === 'active') return !t.done;
-        if (filter === 'done')   return t.done;
-        return true;
-      });
-
-      const total  = tasks.length;
-      const done   = tasks.filter(t => t.done).length;
-      const active = total - done;
-
-      statsEl.textContent = `${total} görev · ${active} aktif · ${done} tamamlandı`;
-      footerEl.textContent = `${active} görev kaldı`;
-
-      if (filtered.length === 0) {
-        listEl.innerHTML = `
-          <div class="empty-state">
-            <div class="icon">✅</div>
-            ${filter === 'done' ? 'Henüz tamamlanan görev yok.' :
-              filter === 'active' ? 'Tüm görevler tamamlandı!' :
-              'Henüz görev eklenmedi.'}
-          </div>`;
-        return;
-      }
-
-      listEl.innerHTML = filtered.map(t => {
-        if (t.id === editingId) {
-          return `
-            <div class="todo-item">
-              <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${t.id})" />
-              <input class="edit-input" id="edit-${t.id}" value="${escHtml(t.text)}"
-                onblur="saveEdit(${t.id}, this.value)"
-                onkeydown="if(event.key==='Enter') this.blur(); if(event.key==='Escape') render();" />
-            </div>`;
-        }
-        return `
-          <div class="todo-item">
-            <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${t.id})" />
-            <span class="todo-text ${t.done ? 'done' : ''}">${escHtml(t.text)}</span>
-            <button class="btn-icon btn-edit"   onclick="startEdit(${t.id})"   title="Düzenle">✏️</button>
-            <button class="btn-icon btn-delete" onclick="deleteTask(${t.id})"  title="Sil">🗑️</button>
-          </div>`;
-      }).join('');
-
-      if (editingId) {
-        const el = document.getElementById(`edit-${editingId}`);
-        if (el) { el.focus(); el.select(); }
-      }
-    }
-
-    function escHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    addBtn.addEventListener('click', addTask);
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
-    clearBtn.addEventListener('click', clearDone);
-
+  // ── Enter app ───────────────────────────────────────────────
+  async function enterApp() {
+    show('app');
+    document.getElementById('taskInput').addEventListener('keydown', e => { if (e.key==='Enter') addTask(); });
+    document.getElementById('addBtn').addEventListener('click', addTask);
+    document.getElementById('logout-btn').addEventListener('click', logout);
+    document.getElementById('clearDone').addEventListener('click', clearDone);
     document.querySelectorAll('.filters button').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
@@ -420,8 +659,18 @@
         render();
       });
     });
+    await loadTasks();
+  }
 
-    loadTasks();
-  </script>
+  // ── Boot ────────────────────────────────────────────────────
+  (async () => {
+    const fromEmail = await handleHashFragment();
+    if (fromEmail || await restoreSession()) {
+      await enterApp();
+    } else {
+      show('register');
+    }
+  })();
+</script>
 </body>
 </html>
