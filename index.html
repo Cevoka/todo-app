@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>To-Do Uygulaması</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,7 +20,7 @@
     .container {
       background: #fff;
       border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
       width: 100%;
       max-width: 480px;
       overflow: hidden;
@@ -36,16 +32,8 @@
       color: #fff;
     }
 
-    .header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .header .stats {
-      font-size: 0.85rem;
-      opacity: 0.85;
-    }
+    .header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
+    .header .stats { font-size: 0.85rem; opacity: 0.85; }
 
     .input-area {
       padding: 20px 24px;
@@ -64,9 +52,7 @@
       transition: border-color 0.2s;
     }
 
-    .input-area input:focus {
-      border-color: #667eea;
-    }
+    .input-area input:focus { border-color: #667eea; }
 
     .input-area button {
       padding: 12px 20px;
@@ -79,13 +65,9 @@
       transition: opacity 0.2s, transform 0.1s;
     }
 
-    .input-area button:hover {
-      opacity: 0.9;
-    }
-
-    .input-area button:active {
-      transform: scale(0.95);
-    }
+    .input-area button:hover { opacity: 0.9; }
+    .input-area button:active { transform: scale(0.95); }
+    .input-area button:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .filters {
       display: flex;
@@ -117,14 +99,8 @@
       overflow-y: auto;
     }
 
-    .todo-list::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .todo-list::-webkit-scrollbar-thumb {
-      background: #d0d0d0;
-      border-radius: 4px;
-    }
+    .todo-list::-webkit-scrollbar { width: 4px; }
+    .todo-list::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 4px; }
 
     .todo-item {
       display: flex;
@@ -140,9 +116,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .todo-item:last-child {
-      border-bottom: none;
-    }
+    .todo-item:last-child { border-bottom: none; }
 
     .todo-item input[type="checkbox"] {
       width: 20px;
@@ -160,10 +134,7 @@
       transition: all 0.2s;
     }
 
-    .todo-text.done {
-      text-decoration: line-through;
-      color: #bbb;
-    }
+    .todo-text.done { text-decoration: line-through; color: #bbb; }
 
     .edit-input {
       flex: 1;
@@ -185,7 +156,7 @@
       flex-shrink: 0;
     }
 
-    .btn-edit:hover  { background: #eef; }
+    .btn-edit:hover   { background: #eef; }
     .btn-delete:hover { background: #fee; }
 
     .empty-state {
@@ -195,9 +166,21 @@
       font-size: 0.95rem;
     }
 
-    .empty-state .icon {
-      font-size: 3rem;
-      margin-bottom: 12px;
+    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .error-banner {
+      background: #fee;
+      color: #c0392b;
+      font-size: 0.82rem;
+      padding: 8px 24px;
+      display: none;
     }
 
     .footer {
@@ -208,10 +191,7 @@
       align-items: center;
     }
 
-    .footer span {
-      font-size: 0.8rem;
-      color: #aaa;
-    }
+    .footer span { font-size: 0.8rem; color: #aaa; }
 
     .btn-clear {
       background: none;
@@ -224,16 +204,14 @@
       transition: background 0.2s;
     }
 
-    .btn-clear:hover {
-      background: #fee;
-    }
+    .btn-clear:hover { background: #fee; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <h1>Yapılacaklar</h1>
-      <div class="stats" id="stats">0 görev</div>
+      <div class="stats" id="stats">Yükleniyor...</div>
     </div>
 
     <div class="input-area">
@@ -247,7 +225,8 @@
       <button data-filter="done">Tamamlanan</button>
     </div>
 
-    <div class="todo-list" id="todoList"></div>
+    <div class="error-banner" id="errorBanner"></div>
+    <div class="todo-list" id="todoList"><div class="loading">Yükleniyor...</div></div>
 
     <div class="footer">
       <span id="footerInfo"></span>
@@ -256,48 +235,123 @@
   </div>
 
   <script>
-    let tasks = JSON.parse(localStorage.getItem('todo_tasks') || '[]');
+    const SUPABASE_URL = 'https://kehkxgouyjceypxmtvip.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlaGt4Z291eWpjZXlweG10dmlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MjY0MTAsImV4cCI6MjA5MjEwMjQxMH0.MV72tv-63uoV-cBEa0aCF5rgfR4BKufQO1F7zKwjvd8';
+    const API = `${SUPABASE_URL}/rest/v1/todos`;
+    const HEADERS = {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    };
+
+    let tasks = [];
     let filter = 'all';
 
-    const input     = document.getElementById('taskInput');
-    const addBtn    = document.getElementById('addBtn');
-    const listEl    = document.getElementById('todoList');
-    const statsEl   = document.getElementById('stats');
-    const footerEl  = document.getElementById('footerInfo');
-    const clearBtn  = document.getElementById('clearDone');
+    const input      = document.getElementById('taskInput');
+    const addBtn     = document.getElementById('addBtn');
+    const listEl     = document.getElementById('todoList');
+    const statsEl    = document.getElementById('stats');
+    const footerEl   = document.getElementById('footerInfo');
+    const clearBtn   = document.getElementById('clearDone');
+    const errorBanner = document.getElementById('errorBanner');
 
-    function save() {
-      localStorage.setItem('todo_tasks', JSON.stringify(tasks));
+    function showError(msg) {
+      errorBanner.textContent = msg;
+      errorBanner.style.display = 'block';
+      setTimeout(() => errorBanner.style.display = 'none', 4000);
     }
 
-    function addTask() {
+    async function api(method, path = '', body = null) {
+      const res = await fetch(API + path, {
+        method,
+        headers: HEADERS,
+        body: body ? JSON.stringify(body) : null
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const text = await res.text();
+      return text ? JSON.parse(text) : null;
+    }
+
+    async function loadTasks() {
+      try {
+        tasks = await api('GET', '?order=created_at.asc');
+        render();
+      } catch (e) {
+        showError('Görevler yüklenemedi.');
+      }
+    }
+
+    async function addTask() {
       const text = input.value.trim();
       if (!text) return;
-      tasks.push({ id: Date.now(), text, done: false });
-      input.value = '';
-      save();
-      render();
+      addBtn.disabled = true;
+      try {
+        const [created] = await api('POST', '', { text, done: false });
+        tasks.push(created);
+        input.value = '';
+        render();
+      } catch (e) {
+        showError('Görev eklenemedi.');
+      } finally {
+        addBtn.disabled = false;
+      }
     }
 
-    function toggleTask(id) {
+    async function toggleTask(id) {
       const t = tasks.find(t => t.id === id);
-      if (t) { t.done = !t.done; save(); render(); }
+      if (!t) return;
+      const prev = t.done;
+      t.done = !t.done;
+      render();
+      try {
+        await api('PATCH', `?id=eq.${id}`, { done: t.done });
+      } catch (e) {
+        t.done = prev;
+        render();
+        showError('Güncelleme başarısız.');
+      }
     }
 
-    function deleteTask(id) {
+    async function deleteTask(id) {
       tasks = tasks.filter(t => t.id !== id);
-      save();
       render();
+      try {
+        await api('DELETE', `?id=eq.${id}`);
+      } catch (e) {
+        showError('Silme başarısız.');
+        await loadTasks();
+      }
     }
 
-    function startEdit(id) {
-      render(id);
-    }
+    function startEdit(id) { render(id); }
 
-    function saveEdit(id, val) {
+    async function saveEdit(id, val) {
       const t = tasks.find(t => t.id === id);
-      if (t && val.trim()) { t.text = val.trim(); save(); }
+      if (!t || !val.trim()) { render(); return; }
+      const prev = t.text;
+      t.text = val.trim();
       render();
+      try {
+        await api('PATCH', `?id=eq.${id}`, { text: t.text });
+      } catch (e) {
+        t.text = prev;
+        render();
+        showError('Düzenleme kaydedilemedi.');
+      }
+    }
+
+    async function clearDone() {
+      const doneIds = tasks.filter(t => t.done).map(t => t.id);
+      if (!doneIds.length) return;
+      tasks = tasks.filter(t => !t.done);
+      render();
+      try {
+        await api('DELETE', `?done=eq.true`);
+      } catch (e) {
+        showError('Silme başarısız.');
+        await loadTasks();
+      }
     }
 
     function render(editingId = null) {
@@ -356,6 +410,7 @@
 
     addBtn.addEventListener('click', addTask);
     input.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
+    clearBtn.addEventListener('click', clearDone);
 
     document.querySelectorAll('.filters button').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -366,13 +421,7 @@
       });
     });
 
-    clearBtn.addEventListener('click', () => {
-      tasks = tasks.filter(t => !t.done);
-      save();
-      render();
-    });
-
-    render();
+    loadTasks();
   </script>
 </body>
 </html>
