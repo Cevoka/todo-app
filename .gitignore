@@ -1,0 +1,5 @@
+mobile/node_modules/
+mobile/.expo/
+mobile/package-lock.json
+mobile/expo-qr.png
+.DS_Store

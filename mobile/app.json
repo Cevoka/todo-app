@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Yapılacaklar",
+    "slug": "todo-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cevoka.todomobile"
+    },
+    "android": {
+      "package": "com.cevoka.todomobile"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
